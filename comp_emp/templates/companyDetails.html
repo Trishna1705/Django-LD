@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details of Company</title>
+</head>
+<body>
+    <!-- This template gets rendered when the details for a company are to be displayed i.e. 
+        when a company's name, from the list of companies, is clicked, then the list of 
+        employees working over there is displayed.-->
+
+    <h3>The company has following employees:</h3>
+    <table style="margin-left: 10%; width: fit-content; margin-top: 2%;">
+        <tr>
+            <th>
+                Employee Name
+            </th>
+            <th>
+                Email ID
+            </th>
+            <th>
+                Contact No
+            </th>
+        </tr>
+        {% for employee in employees %}
+            <tr>
+                <td>
+                    {{employee.emp_name}}
+                </td>
+                <td>
+                    {{employee.email}}
+                </td>
+                <td>
+                    {{employee.phone}}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <!-- The below class is used to provide navigation links to navigate to different pages.
+        The variables like page_number, last, etc are obtained from the get_context_data()
+        function of the view.-->
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_number > 1 %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_number|add:'-1' }}">previous</a>
+            {% endif %}
+    
+            <span class="current-page">{{ page_number }}</span>
+    
+            {% if has_more_records %}
+                <a href="?page={{ page_number|add:'1' }}">next</a>
+                <a href="?page={{last}}">last &raquo;</a>
+            {% endif %}
+
+            
+        </span>
+    </div>
+    
+</body>
+</html>
